@@ -1,7 +1,7 @@
 package skiplist
 
 import (
-	"demo/IEC-61499-Concurrent/event"
+	"IEC-61499-Concurrent/event"
 	"fmt"
 	"testing"
 )
