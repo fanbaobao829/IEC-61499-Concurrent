@@ -1,7 +1,7 @@
 package skiplist
 
 import (
-	"demo/event"
+	"demo/IEC-61499-Concurrent/event"
 	"fmt"
 	"math/rand"
 	"strconv"
