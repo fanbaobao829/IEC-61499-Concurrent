@@ -23,6 +23,12 @@ type SkipList struct {
 	HeadNodeArr []*Node
 }
 
+var EventQueue *SkipList
+
+func init() {
+	EventQueue = PriorityQueue()
+}
+
 // 是否包含节点
 func (list SkipList) HasNode(eventValue event.DiscreteEvent) *Node {
 	if list.Level >= 0 {

@@ -1,11 +1,15 @@
 package functionblock
 
-type FbEventLinked struct {
-	FbLinkedInedx               int
-	FbLinkedInputEventInterface []FbInputEventInterface
+import "IEC-61499-Concurrent/communication"
+
+var EventLinkMapping map[string][]string
+var DataLinkMapping map[string][]string
+
+func AddFbEventLink(FbFromEventInterface string, FbToEventInterface string) {
+	EventLinkMapping[FbFromEventInterface] = append(EventLinkMapping[FbFromEventInterface], FbToEventInterface)
+	communication.GlobalEventBus.Subscribe(FbFromEventInterface, communication.GlobalChannel)
 }
 
-type FbDataLinked struct {
-	FbLinkedInedx              int
-	FbLinkedInputDataInterface []FbInputDataInterface
+func AddFbDataLink(FbFromDataInterface string, FbToDataInterface string) {
+	DataLinkMapping[FbFromDataInterface] = append(DataLinkMapping[FbFromDataInterface], FbToDataInterface)
 }

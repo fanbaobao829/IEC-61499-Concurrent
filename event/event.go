@@ -1,6 +1,7 @@
 package event
 
 type DiscreteEvent struct {
+	Name     string
 	Tlast    int
 	Tddl     int
 	Priority int
