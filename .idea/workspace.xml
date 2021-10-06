@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="初始化">
-      <change afterPath="$PROJECT_DIR$/communication/publish.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/device/model.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/eMerge.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/fbCreate.go" afterDir="false" />
+    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="完善功能块基础功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/communication/public.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/communication/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communication/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/publish.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/belt.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/belt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/sensor.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/sensor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event/event.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/fbLink.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbLink.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/fbType.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/skiplist/priorityQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/skiplist/priorityQueue.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,5 +93,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="完善功能块基础功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善功能块基础功能" />
   </component>
 </project>

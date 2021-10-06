@@ -17,8 +17,8 @@ func init() {
 			case d := <-GlobalChannel:
 				go DealDataEvent(d)
 			}
+			time.Sleep(5 * time.Millisecond)
 		}
-		time.Sleep(5 * time.Millisecond)
 	}()
 }
 

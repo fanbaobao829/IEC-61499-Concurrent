@@ -21,6 +21,10 @@ type Arm struct {
 	Height      float32
 }
 
+func init() {
+
+}
+
 func StepArmMoveTo(car carModel) {
 
 }
