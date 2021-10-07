@@ -34,8 +34,8 @@ type FbInfo struct {
 type EMergeAndServiceValue struct {
 	FbCache     int
 	FbThreshold int
-	FbTtl       int
-	FbLast      int
+	FbTtl       int64
+	FbLast      int64
 }
 
 var EventMapping map[string]*FbInfo

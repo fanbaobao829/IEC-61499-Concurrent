@@ -2,8 +2,8 @@ package event
 
 type DiscreteEvent struct {
 	Name     string
-	Tlast    int
-	Tddl     int
+	Tlast    int64
+	Tddl     int64
 	Priority int
 }
 
