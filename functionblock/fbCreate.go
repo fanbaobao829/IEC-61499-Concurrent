@@ -24,6 +24,7 @@ type FbInfo struct {
 	FbName          string
 	FbPointer       *FbInfo
 	FbPrivate       interface{}
+	DeviceMapping   interface{}
 	NameToInterface map[string]interface{}
 	EventIn         []FbInputEventInterface
 	EventOut        []FbOutputEventInterface
