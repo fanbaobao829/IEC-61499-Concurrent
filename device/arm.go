@@ -2,7 +2,6 @@ package device
 
 import (
 	"math"
-	"time"
 )
 
 type Axis struct {
@@ -21,24 +20,24 @@ type Arm struct {
 	BasePos     Position
 }
 
-func (arm *Arm) ArmMove(car *carModel, timeDuration time.Duration, axis string, direction int) {
+func (arm *Arm) ArmMove(car *CarModel, timeDuration int, axis string, direction int) {
 	if axis == "XoY" {
 		if direction > 0 {
-			arm.AxisXoY.Angular = math.Min(arm.AxisXoY.MaxAngular, arm.AxisXoY.Angular+arm.AxisXoY.Speed*float64(timeDuration/time.Second))
+			arm.AxisXoY.Angular = math.Min(arm.AxisXoY.MaxAngular, arm.AxisXoY.Angular+arm.AxisXoY.Speed*float64(timeDuration/1e9))
 		} else {
-			arm.AxisXoY.Angular = math.Max(arm.AxisXoY.MinAngular, arm.AxisXoY.Angular-arm.AxisXoY.Speed*float64(timeDuration/time.Second))
+			arm.AxisXoY.Angular = math.Max(arm.AxisXoY.MinAngular, arm.AxisXoY.Angular-arm.AxisXoY.Speed*float64(timeDuration/1e9))
 		}
 	} else if axis == "XoZ" {
 		if direction > 0 {
-			arm.AxisXoZ.Angular = math.Min(arm.AxisXoZ.MaxAngular, arm.AxisXoZ.Angular+arm.AxisXoZ.Speed*float64(timeDuration/time.Second))
+			arm.AxisXoZ.Angular = math.Min(arm.AxisXoZ.MaxAngular, arm.AxisXoZ.Angular+arm.AxisXoZ.Speed*float64(timeDuration/1e9))
 		} else {
-			arm.AxisXoZ.Angular = math.Max(arm.AxisXoZ.MinAngular, arm.AxisXoZ.Angular-arm.AxisXoZ.Speed*float64(timeDuration/time.Second))
+			arm.AxisXoZ.Angular = math.Max(arm.AxisXoZ.MinAngular, arm.AxisXoZ.Angular-arm.AxisXoZ.Speed*float64(timeDuration/1e9))
 		}
 	} else {
 		if direction > 0 {
-			arm.AxisYoZ.Angular = math.Min(arm.AxisYoZ.MaxAngular, arm.AxisYoZ.Angular+arm.AxisYoZ.Speed*float64(timeDuration/time.Second))
+			arm.AxisYoZ.Angular = math.Min(arm.AxisYoZ.MaxAngular, arm.AxisYoZ.Angular+arm.AxisYoZ.Speed*float64(timeDuration/1e9))
 		} else {
-			arm.AxisYoZ.Angular = math.Max(arm.AxisYoZ.MinAngular, arm.AxisYoZ.Angular-arm.AxisYoZ.Speed*float64(timeDuration/time.Second))
+			arm.AxisYoZ.Angular = math.Max(arm.AxisYoZ.MinAngular, arm.AxisYoZ.Angular-arm.AxisYoZ.Speed*float64(timeDuration/1e9))
 		}
 	}
 	arm.ActuatorPos.PosX = arm.BasePos.PosX + arm.AxisXoY.length*math.Cos(arm.AxisXoY.Angular) + arm.AxisXoZ.length*math.Cos(arm.AxisXoZ.Angular)

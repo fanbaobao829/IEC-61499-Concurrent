@@ -12,8 +12,8 @@ type EMerge struct {
 
 func (nowFb *EMerge) Execute(eventIn string) {
 	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
-	for eventInIndex, eventInTnterface := range nowFb.EventOut {
-		if eventIn == eventInTnterface.Name {
+	for eventInIndex, eventInInterface := range nowFb.EventOut {
+		if eventIn == eventInInterface.Name {
 			if nowFbPrivate.FbLast+nowFbPrivate.FbTtl < time.Now().UnixNano() {
 				go error(nowFb)
 			}

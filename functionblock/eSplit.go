@@ -15,13 +15,13 @@ type ESplit struct {
 }
 
 const (
-	CycleTime    = 0.02
+	CycleTime    = 20000000
 	BasePriority = 1
 )
 
 func (nowFb *ESplit) Execute(eventIn string) {
 	for _, eventOut := range nowFb.EventOut {
-		go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + int64(CycleTime*1e9), Priority: BasePriority})
+		go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
 		//data refresh
 	}
 }

@@ -6,7 +6,9 @@ type Position struct {
 	PosZ float64
 }
 
-type carModel struct {
+type CarModel struct {
 	NowPos      Position
 	Destination Position
 }
+
+var GlobalCarModel *CarModel

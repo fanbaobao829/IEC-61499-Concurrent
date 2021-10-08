@@ -29,7 +29,7 @@ func init() {
 	EventQueue = PriorityQueue()
 }
 
-// 是否包含节点
+// HasNode 是否包含节点
 func (list SkipList) HasNode(eventValue event.DiscreteEvent) *Node {
 	if list.Level >= 0 {
 		// 只有层级在大于等于 0 的时候在进行循环判断，如果层级小于 0 说明是没有任何数据
@@ -70,7 +70,7 @@ func (list SkipList) HasNode(eventValue event.DiscreteEvent) *Node {
 	return nil
 }
 
-// 删除节点
+// Pop 删除节点
 func (list *SkipList) Pop() {
 	// 如果没有节点就删除
 	if list.Top() == nil {
@@ -104,7 +104,7 @@ func (list *SkipList) Top() *event.DiscreteEvent {
 	return nil
 }
 
-// 添加数据到跳表中
+// Push 添加数据到跳表中
 func (list *SkipList) Push(eventValue event.DiscreteEvent) {
 	if list.HasNode(eventValue) != nil {
 		// 如果包含相同的数据，就返回，不用添加了
@@ -221,7 +221,7 @@ func randLevel() bool {
 	return false
 }
 
-// 初始化跳表
+// PriorityQueue 初始化跳表
 func PriorityQueue() *SkipList {
 	list := new(SkipList)
 	list.Level = -1                            // 设置层级别
@@ -236,7 +236,7 @@ func printPriorityQueue(list *SkipList) {
 	for i := list.Level; i >= 0; i-- {
 		node := list.HeadNodeArr[i].Next
 		for node != nil {
-			fmt.Print("{Priority:" + strconv.Itoa(node.Event.Priority) + ", last:" + strconv.Itoa(node.Event.Tlast) + ", ddl:" + strconv.Itoa(node.Event.Tddl) + "} -> ")
+			fmt.Print("{Priority:" + strconv.Itoa(node.Event.Priority) + ", last:" + strconv.Itoa(int(node.Event.Tlast)) + ", ddl:" + strconv.Itoa(int(node.Event.Tddl)) + "} -> ")
 			node = node.Next
 		}
 		fmt.Println()

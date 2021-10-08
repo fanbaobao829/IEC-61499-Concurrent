@@ -7,7 +7,7 @@ type Sensor struct {
 	Direction string
 }
 
-func (sensor *Sensor) Execute(car *carModel) bool {
+func (sensor *Sensor) Execute(car *CarModel) bool {
 	if sensor.Direction == "X" {
 		if car.NowPos.PosX >= sensor.ScopeMin && car.NowPos.PosX <= sensor.ScopeMax {
 			return true
