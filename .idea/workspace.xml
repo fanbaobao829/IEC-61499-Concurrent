@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="完善传感器 添加设备映射">
-      <change afterPath="$PROJECT_DIR$/conf/test.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/eConveyor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/belt.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/belt.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/model.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/sensor.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/sensor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communication/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eArm.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eConveyor.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eConveyor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eMerge.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eMerge.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eSplit.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/fbMapping.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbMapping.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/skiplist/priorityQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/skiplist/priorityQueue.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schedule/priorityManage.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/priorityManage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skiplist/priorityQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/skiplist/priorityQueue.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/skiplist/priorityQueue_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/skiplist/priorityQueue_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +63,11 @@
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/schedule" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">

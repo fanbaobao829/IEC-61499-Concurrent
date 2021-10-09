@@ -11,6 +11,6 @@ const (
 	NegativeDirection = -1
 )
 
-func (nowFb *EConveyor) Execute(eventIn string) {
-	nowFb.DeviceMapping.(*device.Belt).BeltMove(device.GlobalCarModel, CycleTime, PositiveDirection)
+func (nowFb *EConveyor) Execute(car *device.CarModel, eventIn string) {
+	nowFb.DeviceMapping.(*device.Belt).BeltMove(car, CycleTime, PositiveDirection)
 }

@@ -2,6 +2,7 @@ package functionblock
 
 import (
 	"IEC-61499-Concurrent/communication"
+	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/event"
 	"time"
 )
@@ -10,7 +11,7 @@ type EMerge struct {
 	FbInfo
 }
 
-func (nowFb *EMerge) Execute(eventIn string) {
+func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
 	for eventInIndex, eventInInterface := range nowFb.EventOut {
 		if eventIn == eventInInterface.Name {

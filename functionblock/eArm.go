@@ -6,7 +6,6 @@ type EArm struct {
 	FbInfo
 }
 
-func (nowFb *EArm) Execute(eventIn string) {
-	nowFb.DeviceMapping.(*device.Arm).ArmMove(device.GlobalCarModel, CycleTime, "X", PositiveDirection)
-
+func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
+	nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "X", PositiveDirection)
 }

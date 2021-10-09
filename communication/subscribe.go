@@ -3,7 +3,7 @@ package communication
 import (
 	"IEC-61499-Concurrent/event"
 	"IEC-61499-Concurrent/functionblock"
-	"IEC-61499-Concurrent/skiplist"
+	"IEC-61499-Concurrent/schedule/skiplist"
 	"sync"
 )
 

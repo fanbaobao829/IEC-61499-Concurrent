@@ -88,8 +88,14 @@ func (list *SkipList) Pop() {
 		}
 		node = node.Up
 	}
+	if list.HeadNodeArr[list.Level].Next == nil {
+		list.Level--
+	}
 }
 
+func (list *SkipList) Empty() bool {
+	return list.Level < 0
+}
 func (list *SkipList) top() *Node {
 	if list.Level >= 0 {
 		return list.HeadNodeArr[0].Next
