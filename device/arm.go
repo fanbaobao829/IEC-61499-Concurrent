@@ -7,7 +7,7 @@ import (
 type Axis struct {
 	Speed      float64
 	Angular    float64
-	length     float64
+	Length     float64
 	MaxAngular float64
 	MinAngular float64
 }
@@ -40,8 +40,10 @@ func (arm *Arm) ArmMove(car *CarModel, timeDuration int, axis string, direction 
 			arm.AxisYoZ.Angular = math.Max(arm.AxisYoZ.MinAngular, arm.AxisYoZ.Angular-arm.AxisYoZ.Speed*float64(timeDuration/1e9))
 		}
 	}
-	arm.ActuatorPos.PosX = arm.BasePos.PosX + arm.AxisXoY.length*math.Cos(arm.AxisXoY.Angular) + arm.AxisXoZ.length*math.Cos(arm.AxisXoZ.Angular)
-	arm.ActuatorPos.PosY = arm.BasePos.PosY + arm.AxisXoY.length*math.Sin(arm.AxisXoY.Angular) + arm.AxisYoZ.length*math.Cos(arm.AxisYoZ.Angular)
-	arm.ActuatorPos.PosZ = arm.BasePos.PosZ + arm.AxisXoZ.length*math.Sin(arm.AxisXoZ.Angular) + arm.AxisYoZ.length*math.Sin(arm.AxisYoZ.Angular)
+	arm.ActuatorPos.PosX = arm.BasePos.PosX + arm.AxisXoY.Length*math.Cos(arm.AxisXoY.Angular) + arm.AxisXoZ.Length*math.Cos(arm.AxisXoZ.Angular)
+	arm.ActuatorPos.PosY = arm.BasePos.PosY + arm.AxisXoY.Length*math.Sin(arm.AxisXoY.Angular) + arm.AxisYoZ.Length*math.Cos(arm.AxisYoZ.Angular)
+	arm.ActuatorPos.PosZ = arm.BasePos.PosZ + arm.AxisXoZ.Length*math.Sin(arm.AxisXoZ.Angular) + arm.AxisYoZ.Length*math.Sin(arm.AxisYoZ.Angular)
 	car.NowPos = arm.ActuatorPos
 }
+
+//新建和监听？

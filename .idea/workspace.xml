@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="完善设备映射">
-      <change afterPath="$PROJECT_DIR$/functionblock/eCycle.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functionblock/eStart.go" afterDir="false" />
+    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="主函数完善">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/communication/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eArm.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eMerge.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eMerge.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eSplit.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eStart.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eStart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/fbCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbCreate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schedule/priorityManage.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/priorityManage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schedule/skiplist/priorityQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/skiplist/priorityQueue.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +131,7 @@
     <MESSAGE value="完善传感器 添加设备映射" />
     <MESSAGE value="完善优先级管理" />
     <MESSAGE value="完善设备映射" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善设备映射" />
+    <MESSAGE value="主函数完善" />
+    <option name="LAST_COMMIT_MESSAGE" value="主函数完善" />
   </component>
 </project>

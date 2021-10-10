@@ -77,18 +77,20 @@ func AddFb(name string, privateValue interface{}, inputEventInterface []string, 
 	return nowFb.FbPointer
 }
 
-func (nowFb *FbInfo) AddFbInputEventDataLink(inputEvent string, inputDataInterface []string) {
+func (nowFb *FbInfo) AddFbInputEventDataLink(inputEvent string, inputDataInterface []string) *FbInfo {
 	nowFbInputEventInterface := nowFb.NameToInterface[inputEvent].(FbInputEventInterface)
 	nowFbInputEventInterface.DataLink = make([]string, len(inputDataInterface))
 	for inputDataIndex, inputData := range inputDataInterface {
 		nowFbInputEventInterface.DataLink[inputDataIndex] = inputData
 	}
+	return nowFb
 }
 
-func (nowFb *FbInfo) AddFbOutputEventDataLink(outputEvent string, outputDataInterface []string) {
+func (nowFb *FbInfo) AddFbOutputEventDataLink(outputEvent string, outputDataInterface []string) *FbInfo {
 	nowFbOutputEventInterface := nowFb.NameToInterface[outputEvent].(FbOutputEventInterface)
 	nowFbOutputEventInterface.DataLink = make([]string, len(outputDataInterface))
 	for outputDataIndex, outputData := range outputDataInterface {
 		nowFbOutputEventInterface.DataLink[outputDataIndex] = outputData
 	}
+	return nowFb
 }

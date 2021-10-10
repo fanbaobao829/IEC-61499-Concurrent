@@ -17,6 +17,5 @@ func (nowFb *EStart) Exectue(car *device.CarModel, eventIn string) {
 	}
 	for _, eventOut := range nowFb.EventOut {
 		go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
-		//data refresh
 	}
 }
