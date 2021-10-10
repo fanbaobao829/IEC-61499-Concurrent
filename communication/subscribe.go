@@ -41,7 +41,9 @@ func DealDataEvent(data DataEvent) {
 	eventdata := data.Data.(event.DiscreteEvent)
 	for _, linkedEvent := range EventLinkMapping[data.Topic] {
 		eventdata.Name = linkedEvent
-		skiplist.EventQueue.Push(eventdata)
+		skiplist.GlobalEventQueue.Rm.Lock()
+		skiplist.GlobalEventQueue.Queue.Push(eventdata)
+		skiplist.GlobalEventQueue.Rm.Unlock()
 	}
 }
 

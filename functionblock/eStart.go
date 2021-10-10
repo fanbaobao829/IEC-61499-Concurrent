@@ -7,20 +7,11 @@ import (
 	"time"
 )
 
-type Fb interface {
-	Exectue(car *device.CarModel, eventIn string)
-}
-
-type ESplit struct {
+type EStart struct {
 	FbInfo
 }
 
-const (
-	CycleTime    = 20000000
-	BasePriority = 5
-)
-
-func (nowFb *ESplit) Exectue(car *device.CarModel, eventIn string) {
+func (nowFb *EStart) Exectue(car *device.CarModel, eventIn string) {
 	if eventIn == "" || car == nil {
 		panic("empty event input")
 	}

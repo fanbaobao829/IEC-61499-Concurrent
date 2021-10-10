@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -23,10 +24,15 @@ type SkipList struct {
 	HeadNodeArr []*Node
 }
 
-var EventQueue *SkipList
+type EventQueue struct {
+	Queue *SkipList
+	Rm    sync.Mutex
+}
+
+var GlobalEventQueue *EventQueue
 
 func init() {
-	EventQueue = PriorityQueue()
+	GlobalEventQueue.Queue = PriorityQueue()
 }
 
 // HasNode 是否包含节点

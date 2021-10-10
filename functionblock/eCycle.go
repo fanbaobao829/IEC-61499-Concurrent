@@ -7,18 +7,19 @@ import (
 	"time"
 )
 
-type EArm struct {
+type ECycle struct {
 	FbInfo
 }
 
-func (nowFb *EArm) Exectue(car *device.CarModel, eventIn string) {
-	if eventIn == "" {
+func (nowFb *ECycle) Exectue(car *device.CarModel, eventIn string) {
+	if eventIn == "" || car == nil {
 		panic("empty event input")
 	}
-	nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "X", PositiveDirection)
-	if car.NowPos == car.Destination {
+	for {
 		for _, eventOut := range nowFb.EventOut {
 			go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
+			//data refresh
 		}
+		time.Sleep(CycleTime * time.Nanosecond)
 	}
 }

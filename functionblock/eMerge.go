@@ -11,7 +11,7 @@ type EMerge struct {
 	FbInfo
 }
 
-func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
+func (nowFb *EMerge) Exectue(car *device.CarModel, eventIn string) {
 	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
 	for eventInIndex, eventInInterface := range nowFb.EventOut {
 		if eventIn == eventInInterface.Name {
