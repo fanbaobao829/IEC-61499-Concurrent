@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="主函数完善">
+    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="完善事件队列并发锁机制">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communication/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/publish.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/communication/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/communication/subscribe.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eArm.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eConveyor.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eConveyor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eCycle.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eCycle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eMerge.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eMerge.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eSensor.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSensor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eSplit.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eStart.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eStart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/fbCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbCreate.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/fbMapping.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/fbMapping_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schedule/priorityManage.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/priorityManage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schedule/skiplist/priorityQueue.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/skiplist/priorityQueue.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +51,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
-  </component>
   <component name="ProjectId" id="1z59CKctgXBKezdTr0Sy9x5bcaq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -68,7 +77,7 @@
       <recent name="$PROJECT_DIR$/schedule" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build IEC-61499-Concurrent">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="IEC-61499-Concurrent" />
       <working_directory value="$PROJECT_DIR$" />
@@ -76,6 +85,14 @@
       <package value="demo/IEC-61499-Concurrent" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build IEC-61499-Concurrent" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="IEC-61499-Concurrent" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="IEC-61499-Concurrent" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="TestAddMappingFbToDevice in IEC-61499-Concurrent/functionblock" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -101,6 +118,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build IEC-61499-Concurrent" />
         <item itemvalue="Go Test.TestAddMappingFbToDevice in IEC-61499-Concurrent/functionblock" />
       </list>
     </recent_temporary>
@@ -128,6 +146,8 @@
     <MESSAGE value="完善优先级管理" />
     <MESSAGE value="完善设备映射" />
     <MESSAGE value="主函数完善" />
-    <option name="LAST_COMMIT_MESSAGE" value="主函数完善" />
+    <MESSAGE value="完善事件触发机制" />
+    <MESSAGE value="完善事件队列并发锁机制" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善事件队列并发锁机制" />
   </component>
 </project>

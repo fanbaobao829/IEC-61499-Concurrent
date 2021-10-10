@@ -5,7 +5,12 @@ import "time"
 var GlobalEventBus *EventBus
 var GlobalChannel DataChannel
 
+var EventLinkMapping map[string][]string
+var DataLinkMapping map[string][]string
+
 func init() {
+	EventLinkMapping = make(map[string][]string)
+	DataLinkMapping = make(map[string][]string)
 	// 声明事件总线对象
 	GlobalEventBus = &EventBus{
 		Subscribers: map[string]DataChannelSlice{},

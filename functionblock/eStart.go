@@ -11,11 +11,30 @@ type EStart struct {
 	FbInfo
 }
 
-func (nowFb *EStart) Exectue(car *device.CarModel, eventIn string) {
+func (nowFb *EStart) Execute(car *device.CarModel, eventIn string) {
 	if eventIn == "" || car == nil {
 		panic("empty event input")
 	}
 	for _, eventOut := range nowFb.EventOut {
 		go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
+	}
+}
+
+func (nowFb *EStart) DeviceMap(device interface{}) {
+	nowFb.DeviceMapping = device
+}
+
+func (nowFb *EStart) EventMap(fb Fb) {
+	for _, inputEvent := range nowFb.EventIn {
+		EventMap[inputEvent.Name] = fb
+	}
+	for _, outputEvent := range nowFb.EventOut {
+		EventMap[outputEvent.Name] = fb
+	}
+	for _, inputData := range nowFb.DataIn {
+		DataMap[inputData.Name] = fb
+	}
+	for _, outputData := range nowFb.DataOut {
+		DataMap[outputData.Name] = fb
 	}
 }

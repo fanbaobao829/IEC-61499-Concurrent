@@ -11,7 +11,7 @@ type ECycle struct {
 	FbInfo
 }
 
-func (nowFb *ECycle) Exectue(car *device.CarModel, eventIn string) {
+func (nowFb *ECycle) Execute(car *device.CarModel, eventIn string) {
 	if eventIn == "" || car == nil {
 		panic("empty event input")
 	}
@@ -21,5 +21,24 @@ func (nowFb *ECycle) Exectue(car *device.CarModel, eventIn string) {
 			//data refresh
 		}
 		time.Sleep(CycleTime * time.Nanosecond)
+	}
+}
+
+func (nowFb *ECycle) DeviceMap(device interface{}) {
+	nowFb.DeviceMapping = device
+}
+
+func (nowFb *ECycle) EventMap(fb Fb) {
+	for _, inputEvent := range nowFb.EventIn {
+		EventMap[inputEvent.Name] = fb
+	}
+	for _, outputEvent := range nowFb.EventOut {
+		EventMap[outputEvent.Name] = fb
+	}
+	for _, inputData := range nowFb.DataIn {
+		DataMap[inputData.Name] = fb
+	}
+	for _, outputData := range nowFb.DataOut {
+		DataMap[outputData.Name] = fb
 	}
 }

@@ -1,6 +1,7 @@
 package schedule
 
 import (
+	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/event"
 	"IEC-61499-Concurrent/functionblock"
 	"IEC-61499-Concurrent/schedule/skiplist"
@@ -38,11 +39,11 @@ func ActiveFunctionBlock(list *skiplist.EventQueue) {
 	list.Rm.Lock()
 	for {
 		if list.Queue.Empty() {
-			return
+			break
 		}
 		nowEvent := list.Queue.Top()
 		list.Queue.Pop()
-		functionblock.EventMapping[nowEvent.Name].Execute()
+		functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
 	}
 	defer list.Rm.Unlock()
 }

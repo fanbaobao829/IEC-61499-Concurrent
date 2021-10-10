@@ -11,7 +11,7 @@ type EMerge struct {
 	FbInfo
 }
 
-func (nowFb *EMerge) Exectue(car *device.CarModel, eventIn string) {
+func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
 	for eventInIndex, eventInInterface := range nowFb.EventOut {
 		if eventIn == eventInInterface.Name {
@@ -29,5 +29,24 @@ func (nowFb *EMerge) Exectue(car *device.CarModel, eventIn string) {
 			nowFbPrivate.FbLast = time.Now().UnixNano()
 			nowFb.FbPrivate = nowFbPrivate
 		}
+	}
+}
+
+func (nowFb *EMerge) DeviceMap(device interface{}) {
+	nowFb.DeviceMapping = device
+}
+
+func (nowFb *EMerge) EventMap(fb Fb) {
+	for _, inputEvent := range nowFb.EventIn {
+		EventMap[inputEvent.Name] = fb
+	}
+	for _, outputEvent := range nowFb.EventOut {
+		EventMap[outputEvent.Name] = fb
+	}
+	for _, inputData := range nowFb.DataIn {
+		DataMap[inputData.Name] = fb
+	}
+	for _, outputData := range nowFb.DataOut {
+		DataMap[outputData.Name] = fb
 	}
 }

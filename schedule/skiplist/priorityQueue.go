@@ -32,6 +32,7 @@ type EventQueue struct {
 var GlobalEventQueue *EventQueue
 
 func init() {
+	GlobalEventQueue = new(EventQueue)
 	GlobalEventQueue.Queue = PriorityQueue()
 }
 

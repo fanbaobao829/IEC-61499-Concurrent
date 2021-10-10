@@ -4,6 +4,7 @@ import (
 	"IEC-61499-Concurrent/communication"
 	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/functionblock"
+	"time"
 )
 
 var (
@@ -62,18 +63,26 @@ func init() {
 	D_Arm[4] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
 	D_Arm[5] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
 	//设备与功能块映射
-	functionblock.AddMappingFbToDevice(E_Arm[0], D_Arm[0])
-	functionblock.AddMappingFbToDevice(E_Arm[1], D_Arm[1])
-	functionblock.AddMappingFbToDevice(E_Arm[2], D_Arm[2])
-	functionblock.AddMappingFbToDevice(E_Arm[3], D_Arm[3])
-	functionblock.AddMappingFbToDevice(E_Arm[4], D_Arm[4])
-	functionblock.AddMappingFbToDevice(E_Arm[5], D_Arm[5])
+	E_Arm[0].DeviceMap(D_Arm[0])
+	E_Arm[1].DeviceMap(D_Arm[1])
+	E_Arm[2].DeviceMap(D_Arm[2])
+	E_Arm[3].DeviceMap(D_Arm[3])
+	E_Arm[4].DeviceMap(D_Arm[4])
+	E_Arm[5].DeviceMap(D_Arm[5])
+	//事件注册
+	E_Arm[0].EventMap(E_Arm[0])
+	E_Arm[1].EventMap(E_Arm[1])
+	E_Arm[2].EventMap(E_Arm[2])
+	E_Arm[3].EventMap(E_Arm[3])
+	E_Arm[4].EventMap(E_Arm[4])
+	E_Arm[5].EventMap(E_Arm[5])
 	//初始化元器件
 	Car_Model = &device.CarModel{NowPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, Destination: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
 }
 
 func main() {
+	preTime := time.Now().Unix()
 	//初始触发
-	E_Start.Exectue(Car_Model, "")
-
+	E_Start.Execute(Car_Model, "start")
+	println(time.Now().Unix() - preTime)
 }

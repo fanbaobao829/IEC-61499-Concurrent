@@ -24,9 +24,6 @@ type EventBus struct {
 	rm          sync.RWMutex
 }
 
-var EventLinkMapping map[string][]string
-var DataLinkMapping map[string][]string
-
 func AddFbEventLink(FbFromEventInterface string, FbToEventInterface string) {
 	EventLinkMapping[FbFromEventInterface] = append(EventLinkMapping[FbFromEventInterface], FbToEventInterface)
 	GlobalEventBus.Subscribe(FbFromEventInterface, GlobalChannel)

@@ -17,3 +17,22 @@ func (nowFb *EConveyor) Execute(car *device.CarModel, eventIn string) {
 	}
 	nowFb.DeviceMapping.(*device.Belt).BeltMove(car, CycleTime, PositiveDirection)
 }
+
+func (nowFb *EConveyor) DeviceMap(device interface{}) {
+	nowFb.DeviceMapping = device
+}
+
+func (nowFb *EConveyor) EventMap(fb Fb) {
+	for _, inputEvent := range nowFb.EventIn {
+		EventMap[inputEvent.Name] = fb
+	}
+	for _, outputEvent := range nowFb.EventOut {
+		EventMap[outputEvent.Name] = fb
+	}
+	for _, inputData := range nowFb.DataIn {
+		DataMap[inputData.Name] = fb
+	}
+	for _, outputData := range nowFb.DataOut {
+		DataMap[outputData.Name] = fb
+	}
+}
