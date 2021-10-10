@@ -11,6 +11,7 @@ func init() {
 	go func() {
 		for {
 			AdjustPriority(skiplist.GlobalEventQueue)
+			ActiveFunctionBlock(skiplist.GlobalEventQueue)
 			time.Sleep(5 * time.Millisecond)
 		}
 	}()
@@ -25,7 +26,7 @@ func AdjustPriority(list *skiplist.EventQueue) {
 	}
 	list.Queue = newList
 	//解锁
-	list.Rm.Unlock()
+	defer list.Rm.Unlock()
 }
 
 func adjustPriority(top *event.DiscreteEvent) event.DiscreteEvent {
@@ -33,6 +34,15 @@ func adjustPriority(top *event.DiscreteEvent) event.DiscreteEvent {
 	return *top
 }
 
-func ActiveFunctionBlock() {
-
+func ActiveFunctionBlock(list *skiplist.EventQueue) {
+	list.Rm.Lock()
+	for {
+		if list.Queue.Empty() {
+			return
+		}
+		nowEvent := list.Queue.Top()
+		list.Queue.Pop()
+		functionblock.EventMapping[nowEvent.Name].Execute()
+	}
+	defer list.Rm.Unlock()
 }

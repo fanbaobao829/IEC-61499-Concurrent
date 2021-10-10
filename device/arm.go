@@ -45,5 +45,3 @@ func (arm *Arm) ArmMove(car *CarModel, timeDuration int, axis string, direction 
 	arm.ActuatorPos.PosZ = arm.BasePos.PosZ + arm.AxisXoZ.Length*math.Sin(arm.AxisXoZ.Angular) + arm.AxisYoZ.Length*math.Sin(arm.AxisYoZ.Angular)
 	car.NowPos = arm.ActuatorPos
 }
-
-//新建和监听？

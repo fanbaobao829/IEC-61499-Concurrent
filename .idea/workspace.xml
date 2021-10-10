@@ -8,11 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eArm.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/eMerge.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eMerge.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/eSplit.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/eStart.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eStart.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functionblock/fbCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbCreate.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schedule/priorityManage.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/priorityManage.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
