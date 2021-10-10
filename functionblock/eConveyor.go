@@ -12,5 +12,8 @@ const (
 )
 
 func (nowFb *EConveyor) Execute(car *device.CarModel, eventIn string) {
+	if eventIn == "" {
+		panic("empty event input")
+	}
 	nowFb.DeviceMapping.(*device.Belt).BeltMove(car, CycleTime, PositiveDirection)
 }

@@ -42,8 +42,13 @@ type EMergeAndServiceValue struct {
 var EventMapping map[string]*FbInfo
 var DataMapping map[string]*FbInfo
 
+func init() {
+	EventMapping = make(map[string]*FbInfo)
+	DataMapping = make(map[string]*FbInfo)
+}
+
 func AddFb(name string, privateValue interface{}, inputEventInterface []string, outputEventInterface []string, inputDataInterface []string, outputDataInterface []string) *FbInfo {
-	nowFb := FbInfo{FbName: name, FbPrivate: privateValue}
+	nowFb := FbInfo{FbName: name, FbPrivate: privateValue, NameToInterface: make(map[string]interface{})}
 	nowFb.FbPointer = &nowFb
 	nowFb.EventIn = make([]FbInputEventInterface, len(inputEventInterface))
 	for inputEventIndex, inputEvent := range inputEventInterface {

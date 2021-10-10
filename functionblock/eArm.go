@@ -6,6 +6,9 @@ type EArm struct {
 	FbInfo
 }
 
-func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
+func (nowFb *EArm) Exectue(car *device.CarModel, eventIn string) {
+	if eventIn == "" {
+		panic("empty event input")
+	}
 	nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "X", PositiveDirection)
 }
