@@ -35,13 +35,13 @@ func AddFbDataLink(FbFromDataInterface string, FbToDataInterface string) {
 
 // DealDataEvent 处理订阅消息
 func DealDataEvent(data DataEvent) {
-	eventdata := data.Data.(event.DiscreteEvent)
+	eventData := data.Data.(event.DiscreteEvent)
+	skiplist.GlobalEventQueue.Rm.Lock()
 	for _, linkedEvent := range EventLinkMapping[data.Topic] {
-		eventdata.Name = linkedEvent
-		skiplist.GlobalEventQueue.Rm.Lock()
-		skiplist.GlobalEventQueue.Queue.Push(eventdata)
-		skiplist.GlobalEventQueue.Rm.Unlock()
+		eventData.Name = linkedEvent
+		skiplist.GlobalEventQueue.Queue.Push(eventData)
 	}
+	skiplist.GlobalEventQueue.Rm.Unlock()
 }
 
 // Subscribe 订阅主题  如传统方法回调一样。当发布者向主题发布数据时，channel将接收数据。

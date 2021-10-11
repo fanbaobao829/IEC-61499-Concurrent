@@ -1,5 +1,7 @@
 package communication
 
+import "IEC-61499-Concurrent/communication/channel"
+
 var GlobalEventBus *EventBus
 var GlobalChannel DataChannel
 
@@ -19,6 +21,8 @@ func init() {
 			select {
 			case d := <-GlobalChannel:
 				go DealDataEvent(d)
+			case <-channel.GlobalExitChannel:
+				return
 			}
 		}
 	}()

@@ -2,6 +2,7 @@ package functionblock
 
 import (
 	"IEC-61499-Concurrent/communication"
+	"IEC-61499-Concurrent/communication/channel"
 	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/event"
 	"time"
@@ -15,9 +16,9 @@ func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 	if car == nil {
 		panic("empty car model")
 	}
-	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
-	println(233)
-	for eventInIndex, eventInInterface := range nowFb.EventOut {
+	nowFbPrivate := nowFb.FbPrivate.(*EMergeAndServiceValue)
+	nowFbPrivate.Rm.Lock()
+	for eventInIndex, eventInInterface := range nowFb.EventIn {
 		if eventIn == eventInInterface.Name {
 			if nowFbPrivate.FbLast+nowFbPrivate.FbTtl < time.Now().UnixNano() {
 				go error(nowFb)
@@ -25,8 +26,8 @@ func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 			nowFbPrivate.FbCache |= 1 << eventInIndex
 			if nowFbPrivate.FbCache >= nowFbPrivate.FbThreshold {
 				for _, eventOut := range nowFb.EventOut {
+					channel.GlobalExitChannel <- true
 					go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + 3*1e9, Priority: BasePriority})
-					//data refresh
 				}
 				nowFbPrivate.FbCache = 0
 			}
@@ -34,6 +35,7 @@ func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 			nowFb.FbPrivate = nowFbPrivate
 		}
 	}
+	nowFbPrivate.Rm.Unlock()
 }
 
 func (nowFb *EMerge) DeviceMap(device interface{}) {

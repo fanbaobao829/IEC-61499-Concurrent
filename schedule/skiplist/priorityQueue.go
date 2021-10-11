@@ -58,7 +58,7 @@ func (list SkipList) HasNode(eventValue event.DiscreteEvent) *Node {
 					node = node.Prev.Down
 				}
 				level -= 1
-			} else if event.Greater(node.Event, eventValue) {
+			} else {
 				// 如果节点的值小于传入的值就进入下一个节点，如果下一个节点是 nil，说明本层已经查完了，进入下一层
 				if node.Next == nil {
 					level -= 1
@@ -143,7 +143,7 @@ func (list *SkipList) Push(eventValue event.DiscreteEvent) {
 					node = node.Prev.Down
 				}
 				level -= 1
-			} else if event.Greater(node.Event, eventValue) {
+			} else {
 				// 如果节点的值小于传入的值就进入下一个节点，如果下一个节点是 nil，说明本层已经查完了，进入下一层，且从下一层的头部开始
 				if node.Next == nil {
 					headNodeInsertPositionArr[level] = node
@@ -160,9 +160,7 @@ func (list *SkipList) Push(eventValue event.DiscreteEvent) {
 			}
 		}
 	}
-
 	list.InsertValue(eventValue, headNodeInsertPositionArr)
-
 }
 
 func (list *SkipList) InsertValue(eventValue event.DiscreteEvent, headNodeInsertPositionArr []*Node) {
@@ -244,16 +242,15 @@ func PriorityQueue() *SkipList {
 	return list
 }
 
-func printPriorityQueue(list *SkipList) {
+func PrintPriorityQueue(list *SkipList) {
 	fmt.Println("====================start===============" + strconv.Itoa(list.Level))
 	for i := list.Level; i >= 0; i-- {
 		node := list.HeadNodeArr[i].Next
 		for node != nil {
-			fmt.Print("{Priority:" + strconv.Itoa(node.Event.Priority) + ", last:" + strconv.Itoa(int(node.Event.Tlast)) + ", ddl:" + strconv.Itoa(int(node.Event.Tddl)) + "} -> ")
+			fmt.Print("{Priority:" + strconv.Itoa(node.Event.Priority) + ", last:" + strconv.Itoa(int(node.Event.Tlast)) + ", ddl:" + strconv.Itoa(int(node.Event.Tddl)) + ", name:" + node.Event.Name + "} -> ")
 			node = node.Next
 		}
 		fmt.Println()
 	}
 	fmt.Println("====================end===============")
-
 }

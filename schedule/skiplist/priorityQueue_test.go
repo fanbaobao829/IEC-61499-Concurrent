@@ -15,7 +15,7 @@ func TestPriorityQueue(t *testing.T) {
 	list.Push(event.DiscreteEvent{Tlast: 5, Tddl: 6, Priority: 4})
 	list.Push(event.DiscreteEvent{Tlast: 5, Tddl: 7, Priority: 2})
 
-	printPriorityQueue(list)
+	PrintPriorityQueue(list)
 	fmt.Println(list.Top())
 	list.Pop()
 	fmt.Println(list.Top())
@@ -29,6 +29,6 @@ func TestPriorityQueue(t *testing.T) {
 	fmt.Println(list.Top())
 	list.Pop()
 
-	printPriorityQueue(list)
+	PrintPriorityQueue(list)
 
 }

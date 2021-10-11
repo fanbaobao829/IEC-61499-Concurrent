@@ -28,5 +28,5 @@ func Smaller(event1 DiscreteEvent, event2 DiscreteEvent) bool {
 }
 
 func Equal(event1 DiscreteEvent, event2 DiscreteEvent) bool {
-	return event1.Priority == event2.Priority && event1.Tlast == event2.Tlast && event1.Tddl == event2.Tddl
+	return event1.Priority == event2.Priority && event1.Tlast == event2.Tlast && event1.Tddl == event2.Tddl && event1.Name == event2.Name
 }

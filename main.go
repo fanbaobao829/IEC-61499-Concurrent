@@ -2,6 +2,7 @@ package main
 
 import (
 	"IEC-61499-Concurrent/communication"
+	"IEC-61499-Concurrent/communication/channel"
 	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/functionblock"
 	_ "IEC-61499-Concurrent/schedule"
@@ -17,7 +18,7 @@ var (
 	E_Merge   functionblock.Fb
 	E_Arm     [6]functionblock.Fb
 	E_Start   functionblock.Fb
-	E_Cycle   [6]functionblock.Fb
+	E_Cycle   functionblock.Fb
 	D_Arm     [6]*device.Arm
 	Car_Model *device.CarModel
 )
@@ -25,7 +26,7 @@ var (
 func init() {
 	//创建功能块
 	E_Split = &functionblock.ESplit{*functionblock.AddFb("split", nil, []string{"split_in"}, []string{"split_out1", "split_out2", "split_out3", "split_out4", "split_out5", "split_out6"}, []string{}, []string{})}
-	E_Merge = &functionblock.EMerge{*functionblock.AddFb("merge", functionblock.EMergeAndServiceValue{FbThreshold: 1 << 6, FbTtl: functionblock.CycleTime}, []string{"merge_in1", "merge_in2", "merge_in3", "merge_in4", "merge_in5", "merge_in6"}, []string{"merge_out"}, []string{}, []string{})}
+	E_Merge = &functionblock.EMerge{*functionblock.AddFb("merge", &functionblock.EMergeAndServiceValue{FbThreshold: (1 << 6) - 1, FbLast: time.Now().UnixNano(), FbTtl: 50 * 6 * functionblock.CycleTime}, []string{"merge_in1", "merge_in2", "merge_in3", "merge_in4", "merge_in5", "merge_in6"}, []string{"merge_out"}, []string{}, []string{})}
 	//功能块内事件驱动
 	E_Arm[0] = &functionblock.EArm{*functionblock.AddFb("arm1", nil, []string{"arm_in1", "arm_cycle1"}, []string{"arm_out1"}, []string{}, []string{"arm_execute1"}).AddFbOutputEventDataLink("arm_out1", []string{"arm_execute1"})}
 	E_Arm[1] = &functionblock.EArm{*functionblock.AddFb("arm2", nil, []string{"arm_in2", "arm_cycle2"}, []string{"arm_out2"}, []string{}, []string{"arm_execute2"}).AddFbOutputEventDataLink("arm_out2", []string{"arm_execute2"})}
@@ -34,12 +35,7 @@ func init() {
 	E_Arm[4] = &functionblock.EArm{*functionblock.AddFb("arm5", nil, []string{"arm_in5", "arm_cycle5"}, []string{"arm_out5"}, []string{}, []string{"arm_execute5"}).AddFbOutputEventDataLink("arm_out5", []string{"arm_execute5"})}
 	E_Arm[5] = &functionblock.EArm{*functionblock.AddFb("arm6", nil, []string{"arm_in6", "arm_cycle6"}, []string{"arm_out6"}, []string{}, []string{"arm_execute6"}).AddFbOutputEventDataLink("arm_out6", []string{"arm_execute6"})}
 	E_Start = &functionblock.EStart{*functionblock.AddFb("start", nil, []string{}, []string{"start_out"}, []string{}, []string{})}
-	E_Cycle[0] = &functionblock.ECycle{*functionblock.AddFb("cycle1", nil, []string{}, []string{"cycle_out1"}, []string{}, []string{})}
-	E_Cycle[1] = &functionblock.ECycle{*functionblock.AddFb("cycle2", nil, []string{}, []string{"cycle_out2"}, []string{}, []string{})}
-	E_Cycle[2] = &functionblock.ECycle{*functionblock.AddFb("cycle3", nil, []string{}, []string{"cycle_out3"}, []string{}, []string{})}
-	E_Cycle[3] = &functionblock.ECycle{*functionblock.AddFb("cycle4", nil, []string{}, []string{"cycle_out4"}, []string{}, []string{})}
-	E_Cycle[4] = &functionblock.ECycle{*functionblock.AddFb("cycle5", nil, []string{}, []string{"cycle_out5"}, []string{}, []string{})}
-	E_Cycle[5] = &functionblock.ECycle{*functionblock.AddFb("cycle6", nil, []string{}, []string{"cycle_out6"}, []string{}, []string{})}
+	E_Cycle = &functionblock.ECycle{*functionblock.AddFb("cycle1", nil, []string{}, []string{"cycle_out"}, []string{}, []string{})}
 	//功能块链接
 	communication.AddFbEventLink("start_out", "split_in")
 	communication.AddFbEventLink("split_out1", "arm_in1")
@@ -48,12 +44,12 @@ func init() {
 	communication.AddFbEventLink("split_out4", "arm_in4")
 	communication.AddFbEventLink("split_out5", "arm_in5")
 	communication.AddFbEventLink("split_out6", "arm_in6")
-	communication.AddFbEventLink("cycle_out1", "arm_cycle1")
-	communication.AddFbEventLink("cycle_out2", "arm_cycle2")
-	communication.AddFbEventLink("cycle_out3", "arm_cycle3")
-	communication.AddFbEventLink("cycle_out4", "arm_cycle4")
-	communication.AddFbEventLink("cycle_out5", "arm_cycle5")
-	communication.AddFbEventLink("cycle_out6", "arm_cycle6")
+	communication.AddFbEventLink("cycle_out", "arm_cycle1")
+	communication.AddFbEventLink("cycle_out", "arm_cycle2")
+	communication.AddFbEventLink("cycle_out", "arm_cycle3")
+	communication.AddFbEventLink("cycle_out", "arm_cycle4")
+	communication.AddFbEventLink("cycle_out", "arm_cycle5")
+	communication.AddFbEventLink("cycle_out", "arm_cycle6")
 	communication.AddFbEventLink("arm_out1", "merge_in1")
 	communication.AddFbEventLink("arm_out2", "merge_in2")
 	communication.AddFbEventLink("arm_out3", "merge_in3")
@@ -78,12 +74,7 @@ func init() {
 	E_Start.EventMap(E_Start)
 	E_Split.EventMap(E_Split)
 	E_Merge.EventMap(E_Merge)
-	E_Cycle[0].EventMap(E_Cycle[0])
-	E_Cycle[1].EventMap(E_Cycle[1])
-	E_Cycle[2].EventMap(E_Cycle[2])
-	E_Cycle[3].EventMap(E_Cycle[3])
-	E_Cycle[4].EventMap(E_Cycle[4])
-	E_Cycle[5].EventMap(E_Cycle[5])
+	E_Cycle.EventMap(E_Cycle)
 	E_Arm[0].EventMap(E_Arm[0])
 	E_Arm[1].EventMap(E_Arm[1])
 	E_Arm[2].EventMap(E_Arm[2])
@@ -95,15 +86,10 @@ func init() {
 }
 
 func main() {
-	preTime := time.Now().UnixNano()
+	preTime := time.Now()
 	//初始触发
 	go E_Start.Execute(Car_Model, "start")
-	go E_Cycle[0].Execute(Car_Model, "cycle_out1")
-	go E_Cycle[1].Execute(Car_Model, "cycle_out2")
-	go E_Cycle[2].Execute(Car_Model, "cycle_out3")
-	go E_Cycle[3].Execute(Car_Model, "cycle_out4")
-	go E_Cycle[4].Execute(Car_Model, "cycle_out5")
-	go E_Cycle[5].Execute(Car_Model, "cycle_out6")
+	go E_Cycle.Execute(Car_Model, "cycle_in")
 	//创建监听退出chan
 	c := make(chan os.Signal)
 	//监听指定信号 ctrl+c kill
@@ -113,7 +99,7 @@ func main() {
 			switch s {
 			case syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
 				fmt.Println("退出", s)
-				println(time.Now().UnixNano() - preTime)
+				fmt.Println("Time Speed", time.Now().Sub(preTime).Seconds(), "s")
 				ExitFunc()
 			default:
 				fmt.Println("other", s)
@@ -121,11 +107,13 @@ func main() {
 		}
 	}()
 	fmt.Println("进程启动...")
-	sum := 0
 	for {
-		sum++
-		fmt.Println("sum:", sum)
-		time.Sleep(time.Second)
+		select {
+		case <-channel.GlobalExitChannel:
+			fmt.Println("退出")
+			fmt.Println("Time Speed", time.Now().Sub(preTime).Seconds(), "s")
+			ExitFunc()
+		}
 	}
 }
 

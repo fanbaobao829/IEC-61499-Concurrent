@@ -32,10 +32,10 @@ func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
 		} else {
 			return
 		}
+
 		if nowFb.DeviceMapping.(*device.Arm).AxisXoY.Angular >= 120 {
 			nowFb.DataOut[0].Value = false
 			for _, eventOut := range nowFb.EventOut {
-				println(eventOut.Name)
 				go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
 			}
 		}

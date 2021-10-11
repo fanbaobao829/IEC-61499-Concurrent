@@ -1,6 +1,9 @@
 package functionblock
 
-import "IEC-61499-Concurrent/device"
+import (
+	"IEC-61499-Concurrent/device"
+	"sync"
+)
 
 type FbInputEventInterface struct {
 	Name     string
@@ -39,6 +42,7 @@ type EMergeAndServiceValue struct {
 	FbThreshold int
 	FbTtl       int64
 	FbLast      int64
+	Rm          sync.Mutex
 }
 type Fb interface {
 	Execute(car *device.CarModel, eventIn string)
