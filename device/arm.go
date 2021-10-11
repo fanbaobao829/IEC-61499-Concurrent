@@ -23,21 +23,21 @@ type Arm struct {
 func (arm *Arm) ArmMove(car *CarModel, timeDuration int, axis string, direction int) {
 	if axis == "XoY" {
 		if direction > 0 {
-			arm.AxisXoY.Angular = math.Min(arm.AxisXoY.MaxAngular, arm.AxisXoY.Angular+arm.AxisXoY.Speed*float64(timeDuration/1e9))
+			arm.AxisXoY.Angular = math.Min(arm.AxisXoY.MaxAngular, arm.AxisXoY.Angular+arm.AxisXoY.Speed*float64(timeDuration)/1e9)
 		} else {
-			arm.AxisXoY.Angular = math.Max(arm.AxisXoY.MinAngular, arm.AxisXoY.Angular-arm.AxisXoY.Speed*float64(timeDuration/1e9))
+			arm.AxisXoY.Angular = math.Max(arm.AxisXoY.MinAngular, arm.AxisXoY.Angular-arm.AxisXoY.Speed*float64(timeDuration)/1e9)
 		}
 	} else if axis == "XoZ" {
 		if direction > 0 {
-			arm.AxisXoZ.Angular = math.Min(arm.AxisXoZ.MaxAngular, arm.AxisXoZ.Angular+arm.AxisXoZ.Speed*float64(timeDuration/1e9))
+			arm.AxisXoZ.Angular = math.Min(arm.AxisXoZ.MaxAngular, arm.AxisXoZ.Angular+arm.AxisXoZ.Speed*float64(timeDuration)/1e9)
 		} else {
-			arm.AxisXoZ.Angular = math.Max(arm.AxisXoZ.MinAngular, arm.AxisXoZ.Angular-arm.AxisXoZ.Speed*float64(timeDuration/1e9))
+			arm.AxisXoZ.Angular = math.Max(arm.AxisXoZ.MinAngular, arm.AxisXoZ.Angular-arm.AxisXoZ.Speed*float64(timeDuration)/1e9)
 		}
 	} else {
 		if direction > 0 {
-			arm.AxisYoZ.Angular = math.Min(arm.AxisYoZ.MaxAngular, arm.AxisYoZ.Angular+arm.AxisYoZ.Speed*float64(timeDuration/1e9))
+			arm.AxisYoZ.Angular = math.Min(arm.AxisYoZ.MaxAngular, arm.AxisYoZ.Angular+arm.AxisYoZ.Speed*float64(timeDuration)/1e9)
 		} else {
-			arm.AxisYoZ.Angular = math.Max(arm.AxisYoZ.MinAngular, arm.AxisYoZ.Angular-arm.AxisYoZ.Speed*float64(timeDuration/1e9))
+			arm.AxisYoZ.Angular = math.Max(arm.AxisYoZ.MinAngular, arm.AxisYoZ.Angular-arm.AxisYoZ.Speed*float64(timeDuration)/1e9)
 		}
 	}
 	arm.ActuatorPos.PosX = arm.BasePos.PosX + arm.AxisXoY.Length*math.Cos(arm.AxisXoY.Angular) + arm.AxisXoZ.Length*math.Cos(arm.AxisXoZ.Angular)

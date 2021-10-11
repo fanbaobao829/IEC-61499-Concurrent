@@ -18,6 +18,16 @@ func TestPriorityQueue(t *testing.T) {
 	printPriorityQueue(list)
 	fmt.Println(list.Top())
 	list.Pop()
+	fmt.Println(list.Top())
+	list.Pop()
+	fmt.Println(list.Top())
+	list.Pop()
+	fmt.Println(list.Top())
+	list.Pop()
+	fmt.Println(list.Top())
+	list.Pop()
+	fmt.Println(list.Top())
+	list.Pop()
 
 	printPriorityQueue(list)
 

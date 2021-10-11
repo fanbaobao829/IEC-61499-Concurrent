@@ -95,13 +95,13 @@ func (list *SkipList) Pop() {
 		}
 		node = node.Up
 	}
-	if list.HeadNodeArr[list.Level].Next == nil {
+	for list.Level >= 0 && list.HeadNodeArr[list.Level].Next == nil {
 		list.Level--
 	}
 }
 
 func (list *SkipList) Empty() bool {
-	return list.Level < 0
+	return list.top() == nil
 }
 func (list *SkipList) top() *Node {
 	if list.Level >= 0 {

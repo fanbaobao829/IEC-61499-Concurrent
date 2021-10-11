@@ -1,7 +1,5 @@
 package communication
 
-import "time"
-
 var GlobalEventBus *EventBus
 var GlobalChannel DataChannel
 
@@ -22,7 +20,6 @@ func init() {
 			case d := <-GlobalChannel:
 				go DealDataEvent(d)
 			}
-			time.Sleep(5 * time.Millisecond)
 		}
 	}()
 }

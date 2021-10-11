@@ -4,6 +4,11 @@ import (
 	"IEC-61499-Concurrent/communication"
 	"IEC-61499-Concurrent/device"
 	"IEC-61499-Concurrent/functionblock"
+	_ "IEC-61499-Concurrent/schedule"
+	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
@@ -36,7 +41,7 @@ func init() {
 	E_Cycle[4] = &functionblock.ECycle{*functionblock.AddFb("cycle5", nil, []string{}, []string{"cycle_out5"}, []string{}, []string{})}
 	E_Cycle[5] = &functionblock.ECycle{*functionblock.AddFb("cycle6", nil, []string{}, []string{"cycle_out6"}, []string{}, []string{})}
 	//功能块链接
-	communication.AddFbEventLink("start_out", "split")
+	communication.AddFbEventLink("start_out", "split_in")
 	communication.AddFbEventLink("split_out1", "arm_in1")
 	communication.AddFbEventLink("split_out2", "arm_in2")
 	communication.AddFbEventLink("split_out3", "arm_in3")
@@ -56,12 +61,12 @@ func init() {
 	communication.AddFbEventLink("arm_out5", "merge_in5")
 	communication.AddFbEventLink("arm_out6", "merge_in6")
 	//创建设备
-	D_Arm[0] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
-	D_Arm[1] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
-	D_Arm[2] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
-	D_Arm[3] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
-	D_Arm[4] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
-	D_Arm[5] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 0}}
+	D_Arm[0] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
+	D_Arm[1] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
+	D_Arm[2] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
+	D_Arm[3] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
+	D_Arm[4] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
+	D_Arm[5] = &device.Arm{ActuatorPos: device.Position{PosX: 0, PosY: 0, PosZ: 0}, AxisXoY: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisXoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, AxisYoZ: device.Axis{Angular: 90, Speed: 10, Length: 10, MaxAngular: 180, MinAngular: 0}, BasePos: device.Position{PosX: 0, PosY: 0, PosZ: 10}}
 	//设备与功能块映射
 	E_Arm[0].DeviceMap(D_Arm[0])
 	E_Arm[1].DeviceMap(D_Arm[1])
@@ -70,6 +75,15 @@ func init() {
 	E_Arm[4].DeviceMap(D_Arm[4])
 	E_Arm[5].DeviceMap(D_Arm[5])
 	//事件注册
+	E_Start.EventMap(E_Start)
+	E_Split.EventMap(E_Split)
+	E_Merge.EventMap(E_Merge)
+	E_Cycle[0].EventMap(E_Cycle[0])
+	E_Cycle[1].EventMap(E_Cycle[1])
+	E_Cycle[2].EventMap(E_Cycle[2])
+	E_Cycle[3].EventMap(E_Cycle[3])
+	E_Cycle[4].EventMap(E_Cycle[4])
+	E_Cycle[5].EventMap(E_Cycle[5])
 	E_Arm[0].EventMap(E_Arm[0])
 	E_Arm[1].EventMap(E_Arm[1])
 	E_Arm[2].EventMap(E_Arm[2])
@@ -81,8 +95,43 @@ func init() {
 }
 
 func main() {
-	preTime := time.Now().Unix()
+	preTime := time.Now().UnixNano()
 	//初始触发
-	E_Start.Execute(Car_Model, "start")
-	println(time.Now().Unix() - preTime)
+	go E_Start.Execute(Car_Model, "start")
+	go E_Cycle[0].Execute(Car_Model, "cycle_out1")
+	go E_Cycle[1].Execute(Car_Model, "cycle_out2")
+	go E_Cycle[2].Execute(Car_Model, "cycle_out3")
+	go E_Cycle[3].Execute(Car_Model, "cycle_out4")
+	go E_Cycle[4].Execute(Car_Model, "cycle_out5")
+	go E_Cycle[5].Execute(Car_Model, "cycle_out6")
+	//创建监听退出chan
+	c := make(chan os.Signal)
+	//监听指定信号 ctrl+c kill
+	signal.Notify(c, syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
+	go func() {
+		for s := range c {
+			switch s {
+			case syscall.SIGHUP, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT:
+				fmt.Println("退出", s)
+				println(time.Now().UnixNano() - preTime)
+				ExitFunc()
+			default:
+				fmt.Println("other", s)
+			}
+		}
+	}()
+	fmt.Println("进程启动...")
+	sum := 0
+	for {
+		sum++
+		fmt.Println("sum:", sum)
+		time.Sleep(time.Second)
+	}
+}
+
+func ExitFunc() {
+	fmt.Println("开始退出...")
+	fmt.Println("执行清理...")
+	fmt.Println("结束退出...")
+	os.Exit(0)
 }

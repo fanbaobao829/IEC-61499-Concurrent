@@ -12,8 +12,6 @@ type EArm struct {
 	FbInfo
 }
 
-var ch chan bool
-
 func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
 	if eventIn == "" {
 		panic("empty event input")
@@ -21,27 +19,23 @@ func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
 	if strings.Contains(eventIn, "arm_in") {
 		//refresh data
 		for _, eventOut := range nowFb.EventOut {
-			for _, dataOut := range nowFb.NameToInterface[eventOut.Name].(FbOutputEventInterface).DataLink {
+			for _, dataOut := range nowFb.NameToInterface[eventOut.Name].(*FbOutputEventInterface).DataLink {
 				nowFb.NameToInterface[dataOut].(*FbOutputDataInterface).Value = true
-				go func() {
-					for {
-						select {
-						case <-ch:
-							return
-						default:
-							nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "XoY", PositiveDirection)
-							time.Sleep(CycleTime * time.Nanosecond)
-						}
-					}
-				}()
+				nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "XoY", PositiveDirection)
 			}
 		}
 	}
 	if strings.Contains(eventIn, "arm_cycle") {
 		//check pos
+		if nowFb.DataOut[0].Value != nil && nowFb.DataOut[0].Value.(bool) {
+			nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "XoY", PositiveDirection)
+		} else {
+			return
+		}
 		if nowFb.DeviceMapping.(*device.Arm).AxisXoY.Angular >= 120 {
-			ch <- true
+			nowFb.DataOut[0].Value = false
 			for _, eventOut := range nowFb.EventOut {
+				println(eventOut.Name)
 				go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
 			}
 		}

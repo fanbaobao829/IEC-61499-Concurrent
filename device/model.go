@@ -12,3 +12,7 @@ type CarModel struct {
 }
 
 var GlobalCarModel *CarModel
+
+func init() {
+	GlobalCarModel = new(CarModel)
+}

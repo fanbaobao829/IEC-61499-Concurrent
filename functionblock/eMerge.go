@@ -12,7 +12,11 @@ type EMerge struct {
 }
 
 func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
+	if car == nil {
+		panic("empty car model")
+	}
 	nowFbPrivate := nowFb.FbPrivate.(EMergeAndServiceValue)
+	println(233)
 	for eventInIndex, eventInInterface := range nowFb.EventOut {
 		if eventIn == eventInInterface.Name {
 			if nowFbPrivate.FbLast+nowFbPrivate.FbTtl < time.Now().UnixNano() {
@@ -21,7 +25,7 @@ func (nowFb *EMerge) Execute(car *device.CarModel, eventIn string) {
 			nowFbPrivate.FbCache |= 1 << eventInIndex
 			if nowFbPrivate.FbCache >= nowFbPrivate.FbThreshold {
 				for _, eventOut := range nowFb.EventOut {
-					go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
+					go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + 3*1e9, Priority: BasePriority})
 					//data refresh
 				}
 				nowFbPrivate.FbCache = 0

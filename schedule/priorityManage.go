@@ -5,6 +5,7 @@ import (
 	"IEC-61499-Concurrent/event"
 	"IEC-61499-Concurrent/functionblock"
 	"IEC-61499-Concurrent/schedule/skiplist"
+	"os"
 	"time"
 )
 
@@ -42,8 +43,12 @@ func ActiveFunctionBlock(list *skiplist.EventQueue) {
 			break
 		}
 		nowEvent := list.Queue.Top()
+		println(nowEvent.Name)
+		if nowEvent.Name == "merge_out" {
+			os.Exit(0)
+		}
+		go functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
 		list.Queue.Pop()
-		functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
 	}
 	defer list.Rm.Unlock()
 }
