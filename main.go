@@ -28,12 +28,12 @@ func init() {
 	E_Split = &functionblock.ESplit{*functionblock.AddFb("split", nil, []string{"split_in"}, []string{"split_out1", "split_out2", "split_out3", "split_out4", "split_out5", "split_out6"}, []string{}, []string{})}
 	E_Merge = &functionblock.EMerge{*functionblock.AddFb("merge", &functionblock.EMergeAndServiceValue{FbThreshold: (1 << 6) - 1, FbLast: time.Now().UnixNano(), FbTtl: 50 * 6 * functionblock.CycleTime}, []string{"merge_in1", "merge_in2", "merge_in3", "merge_in4", "merge_in5", "merge_in6"}, []string{"merge_out"}, []string{}, []string{})}
 	//功能块内事件驱动
-	E_Arm[0] = &functionblock.EArm{*functionblock.AddFb("arm1", nil, []string{"arm_in1", "arm_cycle1"}, []string{"arm_out1"}, []string{}, []string{"arm_execute1"}).AddFbOutputEventDataLink("arm_out1", []string{"arm_execute1"})}
-	E_Arm[1] = &functionblock.EArm{*functionblock.AddFb("arm2", nil, []string{"arm_in2", "arm_cycle2"}, []string{"arm_out2"}, []string{}, []string{"arm_execute2"}).AddFbOutputEventDataLink("arm_out2", []string{"arm_execute2"})}
-	E_Arm[2] = &functionblock.EArm{*functionblock.AddFb("arm3", nil, []string{"arm_in3", "arm_cycle3"}, []string{"arm_out3"}, []string{}, []string{"arm_execute3"}).AddFbOutputEventDataLink("arm_out3", []string{"arm_execute3"})}
-	E_Arm[3] = &functionblock.EArm{*functionblock.AddFb("arm4", nil, []string{"arm_in4", "arm_cycle4"}, []string{"arm_out4"}, []string{}, []string{"arm_execute4"}).AddFbOutputEventDataLink("arm_out4", []string{"arm_execute4"})}
-	E_Arm[4] = &functionblock.EArm{*functionblock.AddFb("arm5", nil, []string{"arm_in5", "arm_cycle5"}, []string{"arm_out5"}, []string{}, []string{"arm_execute5"}).AddFbOutputEventDataLink("arm_out5", []string{"arm_execute5"})}
-	E_Arm[5] = &functionblock.EArm{*functionblock.AddFb("arm6", nil, []string{"arm_in6", "arm_cycle6"}, []string{"arm_out6"}, []string{}, []string{"arm_execute6"}).AddFbOutputEventDataLink("arm_out6", []string{"arm_execute6"})}
+	E_Arm[0] = &functionblock.EArm{*functionblock.AddFb("arm1", &functionblock.EArmServiceValue{}, []string{"arm_in1", "arm_cycle1"}, []string{"arm_out1"}, []string{}, []string{"arm_execute1"}).AddFbOutputEventDataLink("arm_out1", []string{"arm_execute1"})}
+	E_Arm[1] = &functionblock.EArm{*functionblock.AddFb("arm2", &functionblock.EArmServiceValue{}, []string{"arm_in2", "arm_cycle2"}, []string{"arm_out2"}, []string{}, []string{"arm_execute2"}).AddFbOutputEventDataLink("arm_out2", []string{"arm_execute2"})}
+	E_Arm[2] = &functionblock.EArm{*functionblock.AddFb("arm3", &functionblock.EArmServiceValue{}, []string{"arm_in3", "arm_cycle3"}, []string{"arm_out3"}, []string{}, []string{"arm_execute3"}).AddFbOutputEventDataLink("arm_out3", []string{"arm_execute3"})}
+	E_Arm[3] = &functionblock.EArm{*functionblock.AddFb("arm4", &functionblock.EArmServiceValue{}, []string{"arm_in4", "arm_cycle4"}, []string{"arm_out4"}, []string{}, []string{"arm_execute4"}).AddFbOutputEventDataLink("arm_out4", []string{"arm_execute4"})}
+	E_Arm[4] = &functionblock.EArm{*functionblock.AddFb("arm5", &functionblock.EArmServiceValue{}, []string{"arm_in5", "arm_cycle5"}, []string{"arm_out5"}, []string{}, []string{"arm_execute5"}).AddFbOutputEventDataLink("arm_out5", []string{"arm_execute5"})}
+	E_Arm[5] = &functionblock.EArm{*functionblock.AddFb("arm6", &functionblock.EArmServiceValue{}, []string{"arm_in6", "arm_cycle6"}, []string{"arm_out6"}, []string{}, []string{"arm_execute6"}).AddFbOutputEventDataLink("arm_out6", []string{"arm_execute6"})}
 	E_Start = &functionblock.EStart{*functionblock.AddFb("start", nil, []string{}, []string{"start_out"}, []string{}, []string{})}
 	E_Cycle = &functionblock.ECycle{*functionblock.AddFb("cycle1", nil, []string{}, []string{"cycle_out"}, []string{}, []string{})}
 	//功能块链接
@@ -111,7 +111,7 @@ func main() {
 		select {
 		case <-channel.GlobalExitChannel:
 			fmt.Println("退出")
-			fmt.Println("Time Speed", time.Now().Sub(preTime).Seconds(), "s")
+			fmt.Println("Concurrency Deal Time Speed", time.Now().Sub(preTime).Seconds(), "s")
 			ExitFunc()
 		}
 	}

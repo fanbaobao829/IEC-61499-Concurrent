@@ -10,6 +10,9 @@ type DiscreteEvent struct {
 func Greater(event1 DiscreteEvent, event2 DiscreteEvent) bool {
 	if event1.Priority == event2.Priority {
 		if event1.Tlast == event2.Tlast {
+			if event1.Tddl == event2.Tddl {
+				return event1.Name < event2.Name
+			}
 			return event1.Tddl < event2.Tddl
 		}
 		return event1.Tlast < event2.Tlast
@@ -20,6 +23,9 @@ func Greater(event1 DiscreteEvent, event2 DiscreteEvent) bool {
 func Smaller(event1 DiscreteEvent, event2 DiscreteEvent) bool {
 	if event1.Priority == event2.Priority {
 		if event1.Tlast == event2.Tlast {
+			if event1.Tddl == event2.Tddl {
+				return event1.Name > event2.Name
+			}
 			return event1.Tddl > event2.Tddl
 		}
 		return event1.Tlast > event2.Tlast

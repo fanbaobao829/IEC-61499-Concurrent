@@ -20,7 +20,7 @@ type Arm struct {
 	BasePos     Position
 }
 
-func (arm *Arm) ArmMove(car *CarModel, timeDuration int, axis string, direction int) {
+func (arm *Arm) ArmMove(car *CarModel, timeDuration int64, axis string, direction int) {
 	if axis == "XoY" {
 		if direction > 0 {
 			arm.AxisXoY.Angular = math.Min(arm.AxisXoY.MaxAngular, arm.AxisXoY.Angular+arm.AxisXoY.Speed*float64(timeDuration)/1e9)

@@ -44,6 +44,12 @@ type EMergeAndServiceValue struct {
 	FbLast      int64
 	Rm          sync.Mutex
 }
+
+type EArmServiceValue struct {
+	FbActiveTimeStamp int64
+	FbLastTimeStamp   int64
+}
+
 type Fb interface {
 	Execute(car *device.CarModel, eventIn string)
 	DeviceMap(device interface{})

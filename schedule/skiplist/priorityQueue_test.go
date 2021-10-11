@@ -8,8 +8,8 @@ import (
 
 func TestPriorityQueue(t *testing.T) {
 	list := PriorityQueue()
-	list.Push(event.DiscreteEvent{Tlast: 5, Tddl: 5, Priority: 5})
-	list.Push(event.DiscreteEvent{Tlast: 3, Tddl: 9, Priority: 1})
+	list.Push(event.DiscreteEvent{Priority: 5, Tlast: 1633955556384319000, Tddl: 1633955556404319000, Name: "arm_cycle1"})
+	list.Push(event.DiscreteEvent{Priority: 5, Tlast: 1633955556384319000, Tddl: 1633955556404319000, Name: "arm_cycle1"})
 	list.Push(event.DiscreteEvent{Tlast: 1, Tddl: 7, Priority: 3})
 	list.Push(event.DiscreteEvent{Tlast: 2, Tddl: 4, Priority: 1})
 	list.Push(event.DiscreteEvent{Tlast: 5, Tddl: 6, Priority: 4})
@@ -30,5 +30,5 @@ func TestPriorityQueue(t *testing.T) {
 	list.Pop()
 
 	PrintPriorityQueue(list)
-
+	println(1633958720407969000 - 1633958717415162000)
 }
