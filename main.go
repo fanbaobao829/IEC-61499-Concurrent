@@ -7,6 +7,7 @@ import (
 	"IEC-61499-Concurrent/functionblock"
 	_ "IEC-61499-Concurrent/schedule"
 	"fmt"
+	"gopkg.in/ini.v1"
 	"os"
 	"os/signal"
 	"syscall"
@@ -24,9 +25,17 @@ var (
 )
 
 func init() {
+	cfg, _ := ini.Load("./conf/config.ini")
 	//创建功能块
+	fbMergeThreshold, _ := cfg.Section("default").Key("fb_merge_threshold").Int()
+	var fbTtl int64
+	if functionblock.RunMode == "serial" {
+		fbTtl, _ = cfg.Section("serial").Key("fb_serial_ttl").Int64()
+	} else {
+		fbTtl, _ = cfg.Section("concurrency").Key("fb_concurrency_ttl").Int64()
+	}
 	E_Split = &functionblock.ESplit{*functionblock.AddFb("split", nil, []string{"split_in"}, []string{"split_out1", "split_out2", "split_out3", "split_out4", "split_out5", "split_out6"}, []string{}, []string{})}
-	E_Merge = &functionblock.EMerge{*functionblock.AddFb("merge", &functionblock.EMergeAndServiceValue{FbThreshold: (1 << 6) - 1, FbLast: time.Now().UnixNano(), FbTtl: 50 * 6 * functionblock.CycleTime}, []string{"merge_in1", "merge_in2", "merge_in3", "merge_in4", "merge_in5", "merge_in6"}, []string{"merge_out"}, []string{}, []string{})}
+	E_Merge = &functionblock.EMerge{*functionblock.AddFb("merge", &functionblock.EMergeAndServiceValue{FbThreshold: fbMergeThreshold, FbLast: time.Now().UnixNano(), FbTtl: fbTtl}, []string{"merge_in1", "merge_in2", "merge_in3", "merge_in4", "merge_in5", "merge_in6"}, []string{"merge_out"}, []string{}, []string{})}
 	//功能块内事件驱动
 	E_Arm[0] = &functionblock.EArm{*functionblock.AddFb("arm1", &functionblock.EArmServiceValue{}, []string{"arm_in1", "arm_cycle1"}, []string{"arm_out1"}, []string{}, []string{"arm_execute1"}).AddFbOutputEventDataLink("arm_out1", []string{"arm_execute1"})}
 	E_Arm[1] = &functionblock.EArm{*functionblock.AddFb("arm2", &functionblock.EArmServiceValue{}, []string{"arm_in2", "arm_cycle2"}, []string{"arm_out2"}, []string{}, []string{"arm_execute2"}).AddFbOutputEventDataLink("arm_out2", []string{"arm_execute2"})}

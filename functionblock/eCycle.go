@@ -25,7 +25,7 @@ func (nowFb *ECycle) Execute(car *device.CarModel, eventIn string) {
 				go communication.GlobalEventBus.Publish(eventOut.Name, event.DiscreteEvent{Name: eventOut.Name, Tlast: time.Now().UnixNano(), Tddl: time.Now().UnixNano() + CycleTime, Priority: BasePriority})
 			}
 		}
-		time.Sleep(CycleTime * time.Nanosecond)
+		time.Sleep(time.Duration(ScanCycle) * time.Nanosecond)
 	}
 }
 

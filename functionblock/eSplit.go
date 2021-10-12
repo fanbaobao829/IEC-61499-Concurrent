@@ -11,11 +11,6 @@ type ESplit struct {
 	FbInfo
 }
 
-const (
-	CycleTime    = 20000000
-	BasePriority = 5
-)
-
 func (nowFb *ESplit) Execute(car *device.CarModel, eventIn string) {
 	if eventIn == "" || car == nil {
 		panic("empty event input")

@@ -30,5 +30,4 @@ func TestPriorityQueue(t *testing.T) {
 	list.Pop()
 
 	PrintPriorityQueue(list)
-	println(1633958720407969000 - 1633958717415162000)
 }

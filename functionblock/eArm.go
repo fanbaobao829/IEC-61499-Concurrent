@@ -29,7 +29,12 @@ func (nowFb *EArm) Execute(car *device.CarModel, eventIn string) {
 	if strings.Contains(eventIn, "arm_cycle") {
 		//check pos
 		if nowFb.DataOut[0].Value != nil && nowFb.DataOut[0].Value.(bool) {
-			nowFb.DeviceMapping.(*device.Arm).ArmMove(car, time.Now().UnixNano()-nowFb.FbPrivate.(*EArmServiceValue).FbLastTimeStamp, "XoY", PositiveDirection)
+			if RunMode == "serial" {
+				nowFb.DeviceMapping.(*device.Arm).ArmMove(car, CycleTime, "XoY", PositiveDirection)
+				time.Sleep(time.Duration(CycleTime) * time.Nanosecond)
+			} else {
+				nowFb.DeviceMapping.(*device.Arm).ArmMove(car, time.Now().UnixNano()-nowFb.FbPrivate.(*EArmServiceValue).FbLastTimeStamp, "XoY", PositiveDirection)
+			}
 			nowFb.FbPrivate.(*EArmServiceValue).FbLastTimeStamp = time.Now().UnixNano()
 		} else {
 			return

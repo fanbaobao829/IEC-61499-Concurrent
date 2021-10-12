@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var runMode string
+
 func init() {
 	go func() {
 		for {
@@ -37,7 +39,7 @@ func AdjustPriority(list *skiplist.EventQueue) {
 }
 
 func adjustPriority(top *event.DiscreteEvent) event.DiscreteEvent {
-	top.Priority -= int(functionblock.BasePriority - (top.Tddl-time.Now().UnixNano())/(top.Tddl-top.Tlast)*4)
+	top.Priority -= functionblock.BasePriority - int((top.Tddl-time.Now().UnixNano())/(top.Tddl-top.Tlast)*4)
 	return *top
 }
 
@@ -48,7 +50,11 @@ func ActiveFunctionBlock(list *skiplist.EventQueue) {
 			break
 		}
 		nowEvent := list.Queue.Top()
-		go functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
+		if functionblock.RunMode == "serial" {
+			functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
+		} else {
+			go functionblock.EventMap[nowEvent.Name].Execute(device.GlobalCarModel, nowEvent.Name)
+		}
 		list.Queue.Pop()
 	}
 	list.Rm.Unlock()

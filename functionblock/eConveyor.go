@@ -6,11 +6,6 @@ type EConveyor struct {
 	FbInfo
 }
 
-const (
-	PositiveDirection = 1
-	NegativeDirection = -1
-)
-
 func (nowFb *EConveyor) Execute(car *device.CarModel, eventIn string) {
 	if eventIn == "" {
 		panic("empty event input")

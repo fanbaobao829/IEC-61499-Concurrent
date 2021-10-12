@@ -2,6 +2,7 @@ package functionblock
 
 import (
 	"IEC-61499-Concurrent/device"
+	"gopkg.in/ini.v1"
 	"sync"
 )
 
@@ -56,12 +57,33 @@ type Fb interface {
 	EventMap(fb Fb)
 }
 
-var EventMap map[string]Fb
-var DataMap map[string]Fb
+const (
+	PositiveDirection = 1
+	NegativeDirection = -1
+)
+
+var (
+	CycleTime    int64
+	ScanCycle    int64
+	BasePriority int
+	RunMode      string
+	EventMap     map[string]Fb
+	DataMap      map[string]Fb
+)
 
 func init() {
 	EventMap = make(map[string]Fb)
 	DataMap = make(map[string]Fb)
+	cfg, _ := ini.Load("./conf/config.ini")
+	//创建功能块
+	RunMode = cfg.Section("default").Key("mode").String()
+	if RunMode == "serial" {
+		ScanCycle, _ = cfg.Section("serial").Key("scan_cycle").Int64()
+	} else {
+		ScanCycle, _ = cfg.Section("concurrency").Key("scan_cycle").Int64()
+	}
+	CycleTime, _ = cfg.Section("default").Key("cycle_time").Int64()
+	BasePriority, _ = cfg.Section("default").Key("base_priority").Int()
 }
 
 func AddFb(name string, privateValue interface{}, inputEventInterface []string, outputEventInterface []string, inputDataInterface []string, outputDataInterface []string) *FbInfo {

@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="并发完善，时间戳增加">
+    <list default="true" id="9684a6c4-cc85-44ab-aa7c-5818cec54cec" name="Changes" comment="完成并发设计和实现">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/device/arm.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/arm.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/event/event.go" beforeDir="false" afterPath="$PROJECT_DIR$/event/event.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/test.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/device/belt.go" beforeDir="false" afterPath="$PROJECT_DIR$/device/belt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eArm.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eArm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eConveyor.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eConveyor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/eCycle.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eCycle.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functionblock/eSplit.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/eSplit.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functionblock/fbCreate.go" beforeDir="false" afterPath="$PROJECT_DIR$/functionblock/fbCreate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schedule/priorityManage.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/priorityManage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schedule/skiplist/priorityQueue_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/schedule/skiplist/priorityQueue_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,6 +65,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -154,6 +158,7 @@
     <MESSAGE value="完善事件队列并发锁机制" />
     <MESSAGE value="并发维护" />
     <MESSAGE value="并发完善，时间戳增加" />
-    <option name="LAST_COMMIT_MESSAGE" value="并发完善，时间戳增加" />
+    <MESSAGE value="完成并发设计和实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成并发设计和实现" />
   </component>
 </project>

@@ -10,7 +10,7 @@ type Belt struct {
 	Direction string
 }
 
-func (belt *Belt) BeltMove(car *CarModel, timeDuration int, direction int) {
+func (belt *Belt) BeltMove(car *CarModel, timeDuration int64, direction int) {
 	if direction > 0 {
 		if belt.Direction == "X" {
 			car.NowPos.PosX = math.Min(car.Destination.PosX, car.NowPos.PosY+belt.Speed*float64(timeDuration/1e9))
